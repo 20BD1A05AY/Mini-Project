@@ -1,0 +1,10 @@
+GET http://localhost:6000/oapp/nor
+
+###
+
+POST http://localhost:6000/oapp/geti
+Content-Type: application/json
+
+{
+    "prompt":"An Impressionist oil painting of sunflowers in a purple vase…"
+}
