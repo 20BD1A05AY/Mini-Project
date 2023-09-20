@@ -1,8 +1,8 @@
-GET http://localhost:6000/oapp/nor
+GET http://localhost:4000/oapp/nor
 
 ###
 
-POST http://localhost:6000/oapp/geti
+POST http://localhost:4000/oapp/geti
 Content-Type: application/json
 
 {
