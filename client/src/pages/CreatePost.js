@@ -15,49 +15,18 @@ const CreatePost = () => {
 
 
   const [form, setForm] = useState({
-    // name: '',
-    // prompt: '',
     photo: '',
   });
 
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  var data;
+
   const fun=async(take)=>{
   
     console.log(JSON.stringify({prompt:take.prompt}));
-// if (form.prompt) {
-    //   try {
-    //     setGeneratingImg(true);
-    //     const response = await fetch("http://localhost:8080/api/v1/dalle", {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         prompt: form.prompt,
-    //       }),
-    //     });
 
-    //     const data = await response.json();
-    //     setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
-    //   } catch (err) {
-    //     alert(err);
-    //   } finally {
-    //     setGeneratingImg(false);
-    //   }
-    // } else {
-    //   alert('Please provide proper prompt');
-
-    //  const options={
-    //   method:'POST',
-    //   headers: {
-    //   'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //    prompt: take.prompt,
-    //   })
-    //   }
 
       try{
 
@@ -70,7 +39,7 @@ const CreatePost = () => {
                 prompt: take.prompt,
               }),
             });
-      const data = await response.json();
+       data = await response.json();
       console.log(data);
       setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
       setGeneratingImg(true);
@@ -78,76 +47,37 @@ const CreatePost = () => {
         console.log(err);
         alert(err);
       }
+
+
       
-
-
-
-     
-    
-
-
+        setLoading(true);
+              try {
+                const response = await fetch('http://localhost:4000/papp/posti', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({photo: `data:image/jpeg;base64,${data.photo}`,name:take.name,prompt:take.prompt}),
+                });
+        
+                await response.json();
+                alert('Success');
+                // navigate('/');
+              } catch (err) {
+                alert(err);
+              } 
 
   }
 
-  // const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+ 
 
   // const handleSurpriseMe = () => {
   //   const randomPrompt = getRandomPrompt(form.prompt);
   //   setForm({ ...form, prompt: randomPrompt });
   // };
 
-  // const generateImage = async () => {
-  //   if (form.prompt) {
-  //     try {
-  //       setGeneratingImg(true);
-  //       const response = await fetch("http://localhost:8080/api/v1/dalle", {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify({
-  //           prompt: form.prompt,
-  //         }),
-  //       });
+  
 
-  //       const data = await response.json();
-  //       setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
-  //     } catch (err) {
-  //       alert(err);
-  //     } finally {
-  //       setGeneratingImg(false);
-  //     }
-  //   } else {
-  //     alert('Please provide proper prompt');
-  //   }
-  // };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (form.prompt && form.photo) {
-//       setLoading(true);
-//       try {
-//         const response = await fetch('http://localhost:8080/api/v1/post', {
-//           method: 'POST',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//           body: JSON.stringify({ ...form }),
-//         });
-
-//         await response.json();
-//         // alert('Success');
-//         navigate('/');
-//       } catch (err) {
-//         alert(err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     } else {
-//       alert('Please generate an image with proper details');
-//     }
-//   };
 
   return (
     <section className="container mx-auto mt-5">
@@ -169,8 +99,7 @@ const CreatePost = () => {
       className="form-control"
       id="name"
       placeholder="Ex., john doe"
-      // value={form.name}
-      // onChange={handleChange}
+    
       name="name"
       {...register("name",{required:true})}
     />
@@ -184,8 +113,6 @@ const CreatePost = () => {
       class="form-control"
       id="prompt"
       placeholder="An Impressionist oil painting of sunflowers in a purple vase…"
-      // value={form.prompt}
-      // onChange={handleChange}
       name="prompt"
       {...register("prompt",{required:true})}
     />
@@ -197,7 +124,6 @@ const CreatePost = () => {
       {form.photo ? (
         <img
           src={form.photo}
-          // alt={form.prompt}
           className="w-100 h-100 object-fit-contain"
         />
       ) : (
@@ -208,11 +134,11 @@ const CreatePost = () => {
         />
       )}
 
-      {generatingImg && (
+      {/* {generatingImg && (
         <div className="position-absolute inset-0 z-0 d-flex justify-content-center align-items-center bg-opacity-50 bg-dark rounded-lg">
           <Loader />
         </div>
-      )}
+      )} */}
     </div>
   </div>
 
@@ -223,13 +149,12 @@ const CreatePost = () => {
       className="btn btn-success w-20"
     >
       generate
-      {/* {generatingImg ? 'Generating...' : 'Generate'} */}
     </button>
   </div>
 
   <div className="mb-4">
   <p className="mt-2 text-muted" style={{ fontSize: '14px' }}>
-  ** Once you have created the image you want, you can share it with others in the community **
+  * Once you have created the image you want, you can share it with others in the community *
 </p>
 
     {/* <button

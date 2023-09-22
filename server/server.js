@@ -5,18 +5,21 @@ const app=exp();
 const path=require('path');
 const pApp=require('./APIs/postRoute');
 const oApp=require('./APIs/openRoute');
+const dotenv=require('dotenv').config();
+
+
 
 
 app.use(exp.json({limit:'500mb'}));
 
-const dburl="mongodb+srv://admin:admin@cluster0.0i8dyo8.mongodb.net/?retryWrites=true&w=majority";
+const dburl=process.env.DB_URL;
 
 mClient.connect(dburl)
 .then((client)=>{
 
-    const theDb=client.db('theDb');
+    const mini=client.db('mini');
 
-    const pColl=theDb.collection('pColl');
+    const pColl=mini.collection('pColl');
 
     app.set('pColl',pColl);
     console.log("database has started successfully");
@@ -27,6 +30,7 @@ mClient.connect(dburl)
 
 
 app.use('/oapp',oApp);
+app.use('/papp',pApp);
 
 app.use(exp.static(path.join(__dirname,'../client/build')));
 

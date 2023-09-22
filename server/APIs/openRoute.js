@@ -7,7 +7,7 @@ const expressAsyncHandler=require('express-async-handler');
 oApp.use(exp.json());
 
 const configuration = new Configuration({
-    apiKey:"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"
+    apiKey:process.env.OPEN_API
   });
 
   const openai = new OpenAIApi(configuration);
@@ -29,28 +29,12 @@ const configuration = new Configuration({
       });
 
       const image=aiResponse.data.data[0].b64_json;
+    
       response.send({photo:image});
 
   }))
 
-//   router.route('/').post(async (req, res) => {
-//     try {
-//       const { prompt } = req.body;
-  
-//       const aiResponse = await openai.createImage({
-//         prompt,
-//         n: 1,
-//         size: '1024x1024',
-//         response_format: 'b64_json',
-//       });
-  
-//       const image = aiResponse.data.data[0].b64_json;
-//       res.status(200).json({ photo: image });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).send(error?.response.data.error.message || 'Something went wrong');
-//     }
-// });
+
 
 
 module.exports=oApp;
