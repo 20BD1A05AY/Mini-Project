@@ -6,7 +6,7 @@ import axios from 'axios';
 import  preview  from '../assets/preview.png';
 
 import { getRandomPrompt } from '../utils';
-import { FormField, Loader } from '../components';
+
 
 const CreatePost = () => {
 
