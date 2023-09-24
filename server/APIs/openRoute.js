@@ -3,12 +3,14 @@ const oApp=exp.Router();
 const Configuration=require('openai').Configuration;
 const OpenAIApi=require('openai').OpenAIApi;
 const expressAsyncHandler=require('express-async-handler');
+const dotenv=require('dotenv').config();
 
 oApp.use(exp.json());
 
 const configuration = new Configuration({
     apiKey:process.env.OPEN_API
   });
+ 
 
   const openai = new OpenAIApi(configuration);
 
