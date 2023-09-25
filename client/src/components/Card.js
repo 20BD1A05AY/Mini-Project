@@ -2,6 +2,7 @@ import React from 'react';
 import download from '../assets/download.png'
 import { downloadImage } from '../utils';
 
+
 const Card = ({photo,name,prompt}) => {
 
   return (
@@ -11,8 +12,9 @@ const Card = ({photo,name,prompt}) => {
   <div class="card-body">
     <p class="card-text">{prompt}</p>
     <h6 class="card-title">-{name}</h6>
-    <a href="#" class="btn btn-success mt-2">download</a>
-  </div>
+    {/* <a href="#" class="btn btn-success mt-2">download</a> */}
+     <button className='btn btn-success' onClick={()=>downloadImage(prompt,photo)}><i class="fa-solid fa-download"></i></button>
+   </div>
 </div>
   );
 }
