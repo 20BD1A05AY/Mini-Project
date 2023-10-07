@@ -69,16 +69,6 @@ const CreatePost = () => {
 
   }
 
- 
-
-  // const handleSurpriseMe = () => {
-  //   const randomPrompt = getRandomPrompt(form.prompt);
-  //   setForm({ ...form, prompt: randomPrompt });
-  // };
-
-  
-
-
   return (
     <section className="container mx-auto mt-5">
       <form className="mt-5 max-w-3xl" onSubmit={handleSubmit(fun)}  >
@@ -133,12 +123,6 @@ const CreatePost = () => {
           className="w-20 h-20 object-fit-contain opacity-40"
         />
       )}
-
-      {/* {generatingImg && (
-        <div className="position-absolute inset-0 z-0 d-flex justify-content-center align-items-center bg-opacity-50 bg-dark rounded-lg">
-          <Loader />
-        </div>
-      )} */}
     </div>
   </div>
 
@@ -154,16 +138,8 @@ const CreatePost = () => {
 
   <div className="mb-4">
   <p className="mt-2 text-muted" style={{ fontSize: '14px' }}>
-  * Once you have created the image you want, you can share it with others in the community *
+  * To download this image go to Community Page * 
 </p>
-
-    {/* <button
-      type="submit"
-      onClick={()=>navigate("/")}
-      class="btn btn-primary w-30"
-    >
-      {loading ? 'Sharing...' : 'Share with the Community'}
-    </button> */}
   </div>
 </form>
 
